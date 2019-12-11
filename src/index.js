@@ -1,23 +1,40 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import First from "./First";
-import Second from "./Second";
+import Message from "./Message";
+import Greeting from "./Greeting";
+import NumSign from "./NumSign";
+import Button from "@material/react-button";
+import "./index.css";
+import "@material/react-button/dist/button.css";
 
 function GoodbyeWorld(props) {
   const [number, setNumber] = useState(0);
-  const [grandNum, setGrandNum] = useState(0);
+  const [squaredNum, setSquaredNum] = useState(0);
   useEffect(() => {
-    setGrandNum(number * number);
+    setSquaredNum(number * number);
   }, [number]);
   return (
-    <div>
-      <div>Hello {props.name}</div>
-      <First />
-      <Second />
-      <div>Number: {number}</div>
-      <div>Grand number: {grandNum}</div>
-      <button onClick={() => setNumber(number + 1)}>+</button>
-      <button onClick={() => setNumber(number - 1)}>-</button>
+    <div className="nonsense">
+      <Greeting name={props.name} />
+      <Message />
+      <div>
+        <NumSign number={number} capture="number" />
+        <NumSign number={squaredNum} capture="squared" />
+      </div>
+      <Button
+        className="button"
+        raised={true}
+        onClick={() => setNumber(number - 1)}
+      >
+        -
+      </Button>
+      <Button
+        className="button"
+        raised={true}
+        onClick={() => setNumber(number + 1)}
+      >
+        +
+      </Button>
     </div>
   );
 }
